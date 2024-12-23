@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+            font-family: Futura;
+            text-align: center;
+        }
+        img {
+            width: 150px; /* Adjust size as needed */
+            height: auto;
+        }
+        p {
+            margin-top: 20px;
+            color: #555;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="allstars.gif" alt="Loading...">
+        <p>allstars is loading, please wait...</p>
+    </div>
+    <script>
+        const renderSiteUrl = 'https://allstars.onrender.com';
+
+        function checkSiteStatus() {
+            fetch(renderSiteUrl, { mode: 'no-cors' })
+                .then(response => {
+                    if (response.type === 'opaque' || response.ok) {
+                        window.location.href = renderSiteUrl;
+                    } else {
+                        throw new Error('Site not ready');
+                    }
+                })
+                .catch(() => {
+                    setTimeout(checkSiteStatus, 5000); // Retry every 5 seconds
+                });
+        }
+
+        checkSiteStatus();
+    </script>
+</body>
+</html>
